@@ -8,7 +8,7 @@ def computer_choise():
     secret_word = choice(words)
     return secret_word
 
-def user_letter(letters_guessed):
+def user_guess(letters_guessed):
     while True:
         user_letter = input("please guess a letter: ").lower()
         if user_letter <"a" or user_letter>"z":
@@ -16,22 +16,24 @@ def user_letter(letters_guessed):
         elif len(user_letter)>1:
            print("too meny chars. please enter one letter")
         elif user_letter in letters_guessed:
-            
-            print("yo already guessed this letter")
+             print("yo already guessed this letter")
         else:
             return user_letter
             
 
 def comparison(secret_word, user_letter, hidden_word, attempts):
     if user_letter in secret_word:
+        print(f"bingo! '{user_letter}' is successful guess")
         for i in range(len(secret_word)):
             if user_letter == secret_word[i]:
                 hidden_word[i] = user_letter
-                print(f"bingo! '{user_letter}' is successful guess")
+                
     else:
-        attempts-=1
         print("wrong guess")
+        attempts-=1
+        
     return attempts
+    
         
 def menue():
     attempts = 10
@@ -46,12 +48,22 @@ def menue():
          print(f"word: {' '.join(hidden_word)}")
          print(f"you have: {attempts} attempts")
          print(f"letters guessed: {', '.join(letters_guessed)}")
-         user_letter=user_letter(letters_guessed)
+         user_letter=user_guess(letters_guessed)
 
          letters_guessed.append(user_letter)
          attempts=comparison(secret_word, user_letter, hidden_word, attempts)
 
+    if attempts == 0:
+        print("game over")
+        print(f"the word was {secret_word}")
+    elif "_" not in hidden_word:
+        print("congratulations")
+        print("you are the winner")
+
+
+
 menue()
+
 
 
 
