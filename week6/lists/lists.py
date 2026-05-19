@@ -46,14 +46,19 @@ def second_largest(nums):
         return second_num
 
 def merge_sorted_lists(list1, list2):
+    list1.extend(list2)
     for i in list1:
-        if list2[0] <= i:
-            list1.insert(i, list2[0])
-            list2.remove(list2[0])
+        for j in range(i+1, len(list1)):
+           if list1[i] > list1[j]:
+            list1[i], list1[j] = list1[j], list1[i]
     return list1
-                         
-
-print(merge_sorted_lists([1,3,5], [2,4,6]))
+        
+                    
+                    
+def rotate_list(l, k):
+    k = k % len(l)
+    
+    return l[-k:] + l[:-k]
    
 
  
